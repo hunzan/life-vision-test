@@ -1,0 +1,101 @@
+<!doctype html>
+<html lang="zh-Hant-TW">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>人生關係策略版本｜自評整合測驗</title>
+  <meta name="description" content="25題自評整合測驗：關係策略轉向、真實自我、界線自動化、能量與意義、整合完成度。即時出分與版本判讀。" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#main">跳到主要內容</a>
+
+  <header class="wrap">
+    <h1>人生關係策略版本｜自評整合測驗</h1>
+    <p class="lead">
+      依你「最近半年左右的真實狀態」作答。每題 1～5 分：1 非常不同意、5 非常同意。
+      <br />
+      <strong>注意：</strong>本測驗為自我覺察工具，非心理診斷。
+    </p>
+  </header>
+
+  <section class="wrap" aria-labelledby="audioCtlTitle">
+    <div class="card audio-card">
+      <h2 id="audioCtlTitle">背景音樂</h2>
+
+      <div class="audio-controls">
+        <button id="btnMusicToggle" type="button">播放音樂</button>
+
+        <label class="audio-volume">
+          <span>音量</span>
+          <input id="musicVolume" type="range" min="0" max="1" step="0.01" value="0.25" />
+        </label>
+      </div>
+
+      <audio id="bgm" preload="none" loop>
+        <source src="audio/bgm.mp3" type="audio/mpeg" />
+      </audio>
+
+      <p class="hint" id="musicHint" aria-live="polite">
+        提示：基於瀏覽器規則，需點「播放音樂」才會開始。
+      </p>
+    </div>
+  </section>
+
+  <main id="main" class="wrap">
+    <section class="card" aria-labelledby="howto">
+      <h2 id="howto">作答方式</h2>
+      <ul>
+        <li>每題選 1～5 分。</li>
+        <li>你可以先做完再看結果，也可以邊做邊看（會即時更新）。</li>
+        <li>不會上傳你的作答；全部在你的瀏覽器本機計算。</li>
+      </ul>
+    </section>
+
+    <form id="quizForm" class="card" novalidate>
+      <h2>題目</h2>
+      <div id="quizRoot"></div>
+    </form>
+
+    <section id="finalResult" class="card hidden" aria-labelledby="result">
+      <h2 id="result">結果</h2>
+      <div class="result-grid">
+        <div>
+          <p class="metric">
+            總分：<span id="totalScore" class="num" aria-live="polite">0</span> / 125
+          </p>
+          <p class="metric">
+            已作答：<span id="answeredCount" class="num" aria-live="polite">0</span> / 25
+          </p>
+          <p class="metric">
+            版本：<span id="versionLabel" class="badge" aria-live="polite">尚未完成</span>
+          </p>
+          <p id="versionDesc" class="desc" aria-live="polite"></p>
+        </div>
+
+        <div class="radar-wrap">
+          <h3 class="radar-title">各模組小計雷達圖（每模組 5～25 分）</h3>
+          <canvas id="radar" width="520" height="420" role="img"
+            aria-label="雷達圖：SST、AIRS、BAI、EM、ID 五個模組的小計分數。"></canvas>
+          <p class="hint" id="radarHint">完成 25 題後顯示雷達圖。</p>
+        </div>
+
+        <div class="actions">
+          <button id="btnReset" type="button">清空重測</button>
+          <button id="btnCopy" type="button">複製結果文字</button>
+          <button id="btnShareLink" type="button">產生分享連結</button>
+          <p class="hint" id="shareHint" aria-live="polite"></p>
+        </div>
+      </div>
+    </section>
+
+    <footer class="wrap footer">
+      <p>
+        © <span id="year"></span> 自評工具｜可自由改作（建議保留「非診斷」聲明）
+      </p>
+    </footer>
+  </main>
+
+  <script src="script.js"></script>
+</body>
+</html>

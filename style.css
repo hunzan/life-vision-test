@@ -1,0 +1,252 @@
+:root {
+  --bg: #0b0c10;
+  --card: #11131a;
+  --text: #e9eef6;
+  --muted: #b7c0d1;
+  --border: #2a2f3a;
+  --focus: #7aa2ff;
+  --accent: #f5c542;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  font-family: system-ui, -apple-system, "Segoe UI", "Noto Sans TC", Arial, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.wrap { max-width: 980px; margin: 0 auto; padding: 18px; }
+h1 { font-size: 1.8rem; margin: 10px 0 6px; }
+h2 { font-size: 1.25rem; margin: 0 0 10px; }
+.lead { color: var(--muted); margin: 0 0 10px; }
+
+.card {
+  background: var(--card);
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  padding: 16px;
+  margin: 14px 0;
+}
+
+fieldset {
+  border: 1px solid var(--border);
+  border-radius: 12px;
+  padding: 12px;
+  margin: 14px 0;
+}
+legend { padding: 0 8px; color: var(--accent); font-weight: 700; }
+
+.q {
+  padding: 10px 0;
+  border-top: 1px dashed var(--border);
+}
+.q:first-child { border-top: none; }
+.q-title { margin: 0 0 8px; }
+
+.scale {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px 10px;
+}
+.scale label {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 6px 10px;
+  border: 1px solid var(--border);
+  border-radius: 999px;
+  cursor: pointer;
+  user-select: none;
+}
+.scale input { accent-color: var(--accent); }
+
+.result-grid {
+  display: grid;
+  grid-template-columns: 1.2fr 0.8fr;
+  gap: 14px;
+}
+@media (max-width: 760px) {
+  .result-grid { grid-template-columns: 1fr; }
+}
+
+.metric { margin: 6px 0; }
+.num { font-weight: 800; font-size: 1.2rem; }
+.badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 999px;
+  border: 1px solid var(--border);
+  background: #0f1118;
+}
+.desc { color: var(--muted); margin: 10px 0 0; }
+
+.actions { display: grid; gap: 10px; align-content: start; }
+button {
+  padding: 10px 12px;
+  border-radius: 12px;
+  border: 1px solid var(--border);
+  background: #0f1118;
+  color: var(--text);
+  cursor: pointer;
+}
+button:hover { border-color: #3c4558; }
+button:focus-visible, a:focus-visible, input:focus-visible {
+  outline: 3px solid var(--focus);
+  outline-offset: 2px;
+}
+.hint { color: var(--muted); margin: 0; }
+
+.footer { color: var(--muted); font-size: 0.9rem; }
+
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 10px;
+  background: #000;
+  color: #fff;
+  padding: 8px 12px;
+  border-radius: 10px;
+}
+.skip-link:focus { left: 12px; z-index: 999; }
+.hidden { display: none; }
+/* ===== Cosmic theme + section colors ===== */
+:root{
+  --bg: #070812;
+  --card: rgba(18, 20, 34, 0.78);
+  --text: #e9eef6;
+  --muted: #b7c0d1;
+  --border: rgba(120, 130, 160, 0.22);
+  --focus: #7aa2ff;
+  --accent: #f5c542;
+
+  /* Section accent colors (deep neon, still dark) */
+  --c-sst:  #6ee7ff;   /* cyan */
+  --c-airs: #a78bfa;   /* purple */
+  --c-bai:  #34d399;   /* green */
+  --c-em:   #fbbf24;   /* amber */
+  --c-id:   #fb7185;   /* pink/red */
+}
+
+/* 星空背景：純 CSS，無圖也能有宇宙感 */
+body{
+  background:
+    radial-gradient(1000px 700px at 10% 10%, rgba(106, 95, 255, .18), transparent 55%),
+    radial-gradient(900px 650px at 85% 20%, rgba(80, 220, 255, .14), transparent 50%),
+    radial-gradient(900px 700px at 50% 90%, rgba(255, 180, 60, .10), transparent 55%),
+    radial-gradient(2px 2px at 15% 25%, rgba(255,255,255,.55), transparent 60%),
+    radial-gradient(2px 2px at 65% 35%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(1px 1px at 80% 70%, rgba(255,255,255,.35), transparent 60%),
+    radial-gradient(1px 1px at 35% 75%, rgba(255,255,255,.25), transparent 60%),
+    radial-gradient(1px 1px at 55% 15%, rgba(255,255,255,.25), transparent 60%),
+    var(--bg);
+  color: var(--text);
+}
+
+.card{
+  background: var(--card);
+  border: 1px solid var(--border);
+  backdrop-filter: blur(10px);
+}
+
+/* fieldset 變成「模組卡」：加上左邊彩色光條 + 內光暈 */
+fieldset{
+  border: 1px solid var(--border);
+  background: rgba(10, 12, 22, 0.35);
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(0,0,0,.25);
+}
+
+fieldset::before{
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  bottom: 0;
+  width: 6px;
+  background: rgba(255,255,255,.12); /* 預設，下面用各模組覆蓋 */
+}
+
+legend{
+  color: var(--accent);
+  font-weight: 800;
+  letter-spacing: .5px;
+}
+
+/* 各模組色彩：用你原本 fieldset id：sec-sst / sec-airs / sec-bai / sec-em / sec-id */
+#sec-sst::before { background: linear-gradient(180deg, rgba(110,231,255,.95), rgba(110,231,255,.2)); }
+#sec-airs::before{ background: linear-gradient(180deg, rgba(167,139,250,.95), rgba(167,139,250,.2)); }
+#sec-bai::before { background: linear-gradient(180deg, rgba(52,211,153,.95), rgba(52,211,153,.2)); }
+#sec-em::before  { background: linear-gradient(180deg, rgba(251,191,36,.95), rgba(251,191,36,.2)); }
+#sec-id::before  { background: linear-gradient(180deg, rgba(251,113,133,.95), rgba(251,113,133,.2)); }
+
+/* 題目分隔線柔一點 */
+.q{
+  border-top: 1px dashed rgba(160,170,200,.22);
+}
+
+/* 選項按鈕更像宇宙膠囊 */
+.scale label{
+  background: rgba(5, 6, 14, .35);
+  border: 1px solid rgba(150,160,190,.22);
+}
+.scale label:hover{
+  border-color: rgba(200,210,255,.35);
+}
+
+/* 結果 badge 微發光 */
+.badge{
+  border: 1px solid rgba(160,170,200,.22);
+  box-shadow: 0 0 0 1px rgba(120,130,160,.18) inset;
+}
+
+/* 可選：完成結果卡有一點「登出艙門」感 */
+#finalResult{
+  box-shadow:
+    0 0 0 1px rgba(130,140,170,.18) inset,
+    0 20px 45px rgba(0,0,0,.35);
+}
+/* 音樂區塊：整塊置中 + 內容置中 */
+.audio-card{
+  max-width: 720px;     /* 你想更窄/更寬可調 */
+  margin: 0 auto;       /* 整塊置中 */
+  text-align: center;   /* 標題與提示置中 */
+}
+
+.audio-controls{
+  display: flex;
+  justify-content: center; /* 讓按鈕/音量控制置中 */
+  align-items: center;
+  gap: 14px;
+  flex-wrap: wrap;
+}
+
+.audio-volume{
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  justify-content: center;
+}
+
+.audio-volume input[type="range"]{
+  width: min(320px, 70vw);
+}
+.radar-wrap{
+  margin-top: 14px;
+  text-align: center;
+}
+
+.radar-title{
+  margin: 10px 0 8px;
+  font-size: 1.05rem;
+}
+
+#radar{
+  width: min(520px, 100%);
+  height: auto;
+  border-radius: 14px;
+  border: 1px solid rgba(160,170,200,.18);
+  background: rgba(5, 6, 14, .25);
+}
