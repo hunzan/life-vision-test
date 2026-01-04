@@ -453,16 +453,31 @@ function loadScoreFromUrl() {
   if (!Number.isFinite(score)) return;
 
   const band = VERSION_BANDS.find((b) => score >= b.min && score <= b.max) || null;
+
+  // ✅ 關鍵：分享模式要強制顯示結果區（不然會被 hidden 藏起來）
+  if (els.finalResult) els.finalResult.classList.remove("hidden");
+
+  // 顯示結果文字（分享模式不會有逐題作答）
   els.answeredCount.textContent = "25";
   els.totalScore.textContent = String(score);
+
   if (band) {
     els.versionLabel.textContent = band.label;
-    els.versionDesc.textContent = band.desc + "（此頁為『分享結果』模式：只顯示總分判讀。）";
+    els.versionDesc.textContent =
+      band.desc + "（此頁為『分享結果』模式：只顯示總分判讀，不含逐題作答。）";
   } else {
     els.versionLabel.textContent = "無法判讀";
     els.versionDesc.textContent = "此分享分數不在有效範圍。";
   }
-  els.shareHint.textContent = "你可以向下重新作答，產生自己的結果。";
+
+  // 雷達圖：分享模式只有總分，沒有各模組小計 → 清掉或顯示提示
+  if (els.radarHint) els.radarHint.textContent = "分享模式僅顯示總分判讀（無逐模組小計）。";
+
+  // ✅ 可選：載入後直接捲到結果（更直覺）
+  if (els.finalResult) els.finalResult.scrollIntoView({ behavior: "smooth" });
+
+  // 提示文字
+  if (els.shareHint) els.shareHint.textContent = "你可以往下重新作答，產生自己的結果。";
 }
 
 // init
