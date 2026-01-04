@@ -407,39 +407,17 @@ async function copyResult() {
   }
 }
 
-/**
- * 產生分享連結（不含逐題作答，只含總分）
- * 例：https://.../index.html?score=96
- */
-async function makeShareLink() {
-  const answers = getAnswers();
-  const { answeredCount, total, band } = compute(answers);
-
-  if (answeredCount < 25) {
-    els.shareHint.textContent = "請先完成 25 題，再產生分享連結。";
-    return;
-  }
-
-  // ✅ GitHub Pages 防 404：確保目錄路徑以 / 結尾（或明確指向 index.html）
-  let path = window.location.pathname;
-
-  // 若是像 /repo 這種沒有結尾 /、也不是 .html，補上 /
-  if (!path.endsWith("/") && !path.toLowerCase().endsWith(".html")) {
-    path += "/";
-  }
-
-  const base = window.location.origin + window.location.pathname.replace(/\/?$/, "/") + "index.html";
-  const url = new URL(base);
-  url.searchParams.set("score", String(total));
-
-  const text = band ? `${band.label}（${total}/125）` : `${total}/125`;
-  const shareText = `我的測驗結果：${text}\n${url.toString()}`;
+async function copyPageUrl() {
+  // 固定複製乾淨的測驗首頁網址（不含 ?query / #hash）
+  const url = new URL(window.location.href);
+  url.search = "";
+  url.hash = "";
 
   try {
-    await navigator.clipboard.writeText(shareText);
-    els.shareHint.textContent = "分享連結已複製到剪貼簿（只包含總分，不含逐題答案）。";
+    await navigator.clipboard.writeText(url.toString());
+    els.shareHint.textContent = "測驗頁網址已複製到剪貼簿，直接貼給朋友即可。";
   } catch {
-    els.shareHint.textContent = `連結如下：${url.toString()}`;
+    els.shareHint.textContent = `請手動複製此網址：${url.toString()}`;
   }
 }
 
@@ -453,31 +431,16 @@ function loadScoreFromUrl() {
   if (!Number.isFinite(score)) return;
 
   const band = VERSION_BANDS.find((b) => score >= b.min && score <= b.max) || null;
-
-  // ✅ 關鍵：分享模式要強制顯示結果區（不然會被 hidden 藏起來）
-  if (els.finalResult) els.finalResult.classList.remove("hidden");
-
-  // 顯示結果文字（分享模式不會有逐題作答）
   els.answeredCount.textContent = "25";
   els.totalScore.textContent = String(score);
-
   if (band) {
     els.versionLabel.textContent = band.label;
-    els.versionDesc.textContent =
-      band.desc + "（此頁為『分享結果』模式：只顯示總分判讀，不含逐題作答。）";
+    els.versionDesc.textContent = band.desc + "（此頁為『分享結果』模式：只顯示總分判讀。）";
   } else {
     els.versionLabel.textContent = "無法判讀";
     els.versionDesc.textContent = "此分享分數不在有效範圍。";
   }
-
-  // 雷達圖：分享模式只有總分，沒有各模組小計 → 清掉或顯示提示
-  if (els.radarHint) els.radarHint.textContent = "分享模式僅顯示總分判讀（無逐模組小計）。";
-
-  // ✅ 可選：載入後直接捲到結果（更直覺）
-  if (els.finalResult) els.finalResult.scrollIntoView({ behavior: "smooth" });
-
-  // 提示文字
-  if (els.shareHint) els.shareHint.textContent = "你可以往下重新作答，產生自己的結果。";
+  els.shareHint.textContent = "你可以向下重新作答，產生自己的結果。";
 }
 
 // init
@@ -485,7 +448,7 @@ renderQuiz();
 setResult({ answeredCount: 0, total: 0, band: null });
 els.btnReset.addEventListener("click", resetAll);
 els.btnCopy.addEventListener("click", copyResult);
-els.btnShareLink.addEventListener("click", makeShareLink);
+els.btnShareLink.addEventListener("click", copyPageUrl);
 loadScoreFromUrl();
 
 // ===== BGM controls =====
