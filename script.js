@@ -421,35 +421,12 @@ async function copyPageUrl() {
   }
 }
 
-/** 若網址帶 score=xx，顯示判讀（不自動填題） */
-function loadScoreFromUrl() {
-  const url = new URL(window.location.href);
-  const s = url.searchParams.get("score");
-  if (!s) return;
-
-  const score = Number(s);
-  if (!Number.isFinite(score)) return;
-
-  const band = VERSION_BANDS.find((b) => score >= b.min && score <= b.max) || null;
-  els.answeredCount.textContent = "25";
-  els.totalScore.textContent = String(score);
-  if (band) {
-    els.versionLabel.textContent = band.label;
-    els.versionDesc.textContent = band.desc + "（此頁為『分享結果』模式：只顯示總分判讀。）";
-  } else {
-    els.versionLabel.textContent = "無法判讀";
-    els.versionDesc.textContent = "此分享分數不在有效範圍。";
-  }
-  els.shareHint.textContent = "你可以向下重新作答，產生自己的結果。";
-}
-
 // init
 renderQuiz();
 setResult({ answeredCount: 0, total: 0, band: null });
 els.btnReset.addEventListener("click", resetAll);
 els.btnCopy.addEventListener("click", copyResult);
 els.btnShareLink.addEventListener("click", copyPageUrl);
-loadScoreFromUrl();
 
 // ===== BGM controls =====
 if (els.bgm && els.btnMusicToggle && els.musicVolume) {
